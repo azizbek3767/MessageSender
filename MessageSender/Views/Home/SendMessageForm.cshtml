@@ -1,0 +1,46 @@
+﻿@model HomeSendMessageFormViewModel
+
+<h2>Welcome @Model.User.Name</h2>
+
+
+<a class="btn btn-info" asp-controller="home" asp-action="index" style="display: inline-block; margin: 5px;">Back</a>
+
+
+<form asp-controller="home" asp-action="SendMessageForm" method="post">
+    <input hidden value="@Model.User.Id" asp-for="UserId" />
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Message Title</label>
+        <input asp-for="MessageTitle" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Message Title">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Choose Recipient</label>
+        <select asp-for="MessageRecepientName" class="form-control" id="exampleFormControlSelect1">
+            @foreach (var user in Model.Users)
+            {
+                <option value="@user.Name">@user.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Message</label>
+        <textarea asp-for="MessageBody" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>
+
+
+
+@if (Model.Messages != null)
+{
+    @foreach (var message in Model.Messages.Where(m => m.UserId.Equals(Model.User.Id)))
+    {
+        <div class="card m-4" style="width: 18rem;">
+            <h3>Id: @message.Id</h3>
+            <div class="card-body">
+                <h5 class="card-title">Title: @message.Title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Recepient @message.Recipient</h6>
+                <p class="card-text">Message: @message.MessageBody</p>
+            </div>
+        </div>
+    }
+}

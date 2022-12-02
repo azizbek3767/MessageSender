@@ -1,0 +1,12 @@
+﻿@model HomeSendMessageViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<form class="form-inline" asp-controller="Home" asp-action="SendMessageForm" method="get">
+    <label class="sr-only" for="userName">Name</label>
+    <input asp-for="Name" type="text" class="form-control mb-2 mr-sm-2" placeholder="Your Name...">
+
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>
